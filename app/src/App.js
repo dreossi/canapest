@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import ImageUploader from 'react-images-upload';
-import { Spin } from 'antd';
-
 
 class App extends Component {
   constructor(props) {
@@ -13,9 +11,24 @@ class App extends Component {
   }
 
   onDrop(picture) {
-    console.log(picture);
     this.setState({
       pictures: this.state.pictures.concat(picture),
+    });
+
+    // fetch('/upload_image/', {
+    //   method: 'POST',
+    //   headers: {
+    //     Accept: 'application/json',
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify({
+    //     firstParam: 'yourValue',
+    //     secondParam: 'yourOtherValue',
+    //   }),
+    // });
+    fetch('http://localhost:5000/upload_image/', {
+      method:'POST',
+      body: picture
     });
   }
 
@@ -38,7 +51,6 @@ class App extends Component {
             withPreview={true}
             withLabel={false}
         />
-        <Spin size="large" />
       </div>
     );
   }
