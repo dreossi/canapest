@@ -1,13 +1,15 @@
 #!/usr/bin/python
 
 import sys, getopt
+import cv2
+
 
 import tensorflow as tf
 from model import Model
 #import cv2
 import matplotlib.image as mpimg
 
-graph_path = 'canapest-model.meta'
+graph_path = 'canapest-multi-model.meta'
 checkpoints_path = './'
 
 def run_demo():
@@ -17,10 +19,11 @@ def run_demo():
         #image = cv2.imread(image_path)
         while True:
             image_path = raw_input("Image path:")
-            image = mpimg.imread(image_path)
-            bad, good = nn.predict(image)[0]
-            print 'Bad', str(bad*100), '%'
-            print 'Good', str(good*100), '%'
+            #image = mpimg.imread(image_path)
+            image = cv2.imread(image_path)
+	    print(nn.predict(image)[0])
+            #print 'Bad', str(bad*100), '%'
+            #print 'Good', str(good*100), '%'
 
 def main(argv):
    inputfile = ''

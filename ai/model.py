@@ -47,7 +47,7 @@ class Model:
         # Feed image to the input placeholder
         x= self.graph.get_tensor_by_name("x:0")
         y_true = self.graph.get_tensor_by_name("y_true:0")
-        y_test_images = np.zeros((1, 2))
+        y_test_images = np.zeros((1, 4))
 
 
         # Calculate y_pred
