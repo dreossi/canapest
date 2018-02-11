@@ -187,7 +187,7 @@ def train(num_iteration):
 
 
         feed_dict_tr = {x: x_batch, y_true: y_true_batch, keep_prob: 0.5}
-        feed_dict_val = {x: x_valid_batch, y_true: y_valid_batch, keep_prob : 1.0}
+        feed_dict_val = {x: x_valid_batch, y_true: y_valid_batch, keep_prob: 1.0}
 
         session.run(optimizer, feed_dict=feed_dict_tr)
 

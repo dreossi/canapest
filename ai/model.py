@@ -28,10 +28,10 @@ class Model:
         image_size = 128
         num_channels = 3
         images = []
-        #image = cv2.resize(image, (image_size, image_size), cv2.INTER_LINEAR)
-        pix = Image.fromarray(image, 'RGB')
-        pix = pix.resize((image_size, image_size), Image.ANTIALIAS)
-        image = np.array(pix)
+        image = cv2.resize(image, (image_size, image_size), cv2.INTER_LINEAR)
+        # pix = Image.fromarray(image, 'RGB')
+        # pix = pix.resize((image_size, image_size), Image.ANTIALIAS)
+        # image = np.array(pix)
 
         images.append(image)
         images = np.array(images, dtype=np.uint8)
@@ -47,11 +47,12 @@ class Model:
         # Feed image to the input placeholder
         x= self.graph.get_tensor_by_name("x:0")
         y_true = self.graph.get_tensor_by_name("y_true:0")
+        #keep_prob = self.graph.get_tensor_by_name("keep_prob:0")
         y_test_images = np.zeros((1, 4))
 
 
         # Calculate y_pred
-        feed_dict_testing = {x: x_batch, y_true: y_test_images}
+        feed_dict_testing = {x: x_batch, y_true: y_test_images, keep_prob: 1.0}
         result=self.sess.run(y_pred, feed_dict=feed_dict_testing)
 
         return result
