@@ -4,8 +4,10 @@
   "private": true,
   "dependencies": {
     "antd": "^3.2.0",
+    "material-ui": "^0.20.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "react-flexbox-grid": "^2.0.0",
     "react-images-upload": "^1.1.1",
     "react-scripts": "1.1.1",
     "react-webcam": "^0.2.0",
@@ -13,7 +15,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build && ../copy_build.sh",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   }

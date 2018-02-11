@@ -4,7 +4,7 @@
 
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+  height: 40px;
 }
 
 .App-header {
@@ -25,4 +25,33 @@
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+.uploadPictureContainer {
+  width: 100%;
+  height: auto;
+}
+
+.deleteImage {
+  display: none;
+}
+
+.uploadPicture {}
+
+.buttonClassName {}
+
+.hide {
+  display: none;
+}
+
+.analysis {
+  float: left;
+}
+
+.fileContainer .uploadPicturesWrapper .uploadPictureContainer {
+  width: 100%;
+  all: initial;
+  * {
+    all: unset;
+  }
 }

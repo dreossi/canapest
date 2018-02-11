@@ -1,2 +1,7 @@
+<<<<<<< HEAD
 model_checkpoint_path: "canapest-multi-model"
 all_model_checkpoint_paths: "canapest-multi-model"
+=======
+model_checkpoint_path: "canapest-model"
+all_model_checkpoint_paths: "canapest-model"
+>>>>>>> 4a15c97158889a67c8ae2832aeb66d295c44a2c6
