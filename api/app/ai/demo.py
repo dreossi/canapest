@@ -14,14 +14,13 @@ checkpoints_path = './'
 def run_demo():
     with tf.Session() as sess:
         nn = Model()
-        nn.init(graph_path, checkpoints_path, sess)
+        nn.init(sess, graph_path, checkpoints_path)
         #image = cv2.imread(image_path)
         while True:
-            image_path = raw_input("Image path:")
+            image_path = input("Image path:")
             #image = mpimg.imread(image_path)
             image = cv2.imread(image_path)
-
-	    print(nn.predict(image)[0])
+            print(nn.predict(image)[0])
             #print 'Bad', str(bad*100), '%'
             #print 'Good', str(good*100), '%'
 
