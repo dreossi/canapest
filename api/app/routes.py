@@ -1,7 +1,5 @@
 from app import app
-from flask import jsonify
-from flask import Response
-from flask import request
+from flask import jsonify, render_template, Response, request
 import os 
 from werkzeug.utils import secure_filename
 
@@ -9,7 +7,7 @@ from werkzeug.utils import secure_filename
 @app.route('/')
 @app.route('/index')
 def index():
-  return "Hello, World!"
+  return render_template('index.html')
 
 
 @app.route('/upload_image', methods = ['POST', "GET"])
