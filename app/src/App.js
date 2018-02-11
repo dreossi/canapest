@@ -2,7 +2,34 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import ImageUploader from 'react-images-upload';
-import Webcam from 'react-webcam';
+// import Webcam from './Webcam';
+import { Spin, Alert } from 'antd';
+import AppBar from 'material-ui/AppBar';
+
+import spacing from 'material-ui/styles/spacing';
+import withWidth, {MEDIUM, LARGE} from 'material-ui/utils/withWidth';
+import {darkWhite, lightWhite, grey900} from 'material-ui/styles/colors';
+import MenuIcon from 'material-ui/svg-icons/navigation/menu';
+import IconButton from 'material-ui/IconButton';
+import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import {
+  Card,
+  CardActions,
+  CardHeader,
+  CardMedia,
+  CardTitle,
+  CardText
+} from 'material-ui/Card';
+import WarningIcon from 'material-ui/svg-icons/alert/warning';
+import { Row, Col } from 'react-flexbox-grid';
+import CircularProgress from 'material-ui/CircularProgress';
+
+/*
+TODO:
+- add cancel button
+*/
 
 class App extends Component {
   constructor(props) {
@@ -11,80 +38,61 @@ class App extends Component {
     this.onDrop = this.onDrop.bind(this);
   }
 
-  setRef = (webcam) => {
-    this.webcam = webcam;
-  }
-
-  capture = () => {
-    const imageSrc = this.webcam.getScreenshot();
-    console.log(imageSrc);
-    this.onDrop(imageSrc);
-  };
-
   onDrop(picture) {
     this.setState({
       pictures: this.state.pictures.concat(picture),
     });
 
-    console.log(picture);
-
-    // fetch('/upload_image/', {
-    //   method: 'POST',
-    //   headers: {
-    //     Accept: 'application/json',
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify({
-    //     firstParam: 'yourValue',
-    //     secondParam: 'yourOtherValue',
-    //   }),
-    // });
     fetch('http://localhost:5000/upload_image/', {
       method:'POST',
-      body: picture
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      },
+      file: picture
+    }).then((data)=> {
+      console.log(data)
     });
   }
 
 
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Canapest</h1>
-        </header>
-        <p className="App-intro">
-          Welcome to the Canabis plant disease classifier, upload an image to classify it.
-        </p>
-        <ImageUploader
-            withIcon={true}
-            buttonText='Upload image'
-            onChange={this.onDrop}
-            imgExtension={['.jpg', '.gif', '.png', '.gif']}
-            maxFileSize={5242880}
-            withPreview={true}
-            withLabel={false}
+      <MuiThemeProvider>
+        <AppBar
+          title={<span style={{cursor: 'pointer'}}>Cannapest</span>}
+          iconElementLeft={
+            <img src={logo} className="App-logo" alt="logo" />
+          }
         />
-        {
-          // this.state.pictures.map((picture, index) => {
-          //   return (
-          //     <div key={index} className="uploadPictureContainer">
-          //       <img src={picture} className="uploadPicture" alt="preview"/>
-          //     </div>
-          //   );
-          // })
-        }
-        {
-        // <Webcam
-        //   audio={false}
-        //   height={350}
-        //   ref={this.setRef}
-        //   screenshotFormat="image/jpeg"
-        //   width={350}
-        // />
-        // <button onClick={this.capture}>Capture photo</button>
-        }
-      </div>
+        <Card className="App">
+          <CardText>
+            <p className={this.state.pictures.length < 1 ? 'App-intro': 'hide'}>
+              Welcome to the Canabis plant disease classifier, upload an image to classify it.
+            </p>
+            <ImageUploader
+                buttonText='Upload image'
+                onChange={this.onDrop}
+                imgExtension={['.jpg', '.gif', '.png', '.gif']}
+                maxFileSize={5242880}
+                withPreview={true}
+                withIcon={this.state.pictures.length < 1 ? true: false}
+                withLabel={false}
+                buttonClassName={this.state.pictures.length < 1 ? 'chooseFileButton': 'hide'}
+            />
+            <div className={this.state.pictures.length < 1 ? 'hide': 'analysis'}>
+              <Spin tip="Analyzing...">
+                <Alert
+                  message="Alert message title"
+                  description="Further details about the context of this alert."
+                  type="info"
+                />
+              </Spin>
+            </div>
+          </CardText>
+        </Card>
+      </MuiThemeProvider>
     );
   }
 }
