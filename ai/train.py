@@ -108,7 +108,7 @@ def create_fc_layer(input, num_inputs, num_outputs, use_relu=True):
 
     # Fully connected layer takes input x and produces wx+b
     layer = tf.matmul(input, weights) + biases
-    layer = tf.dropout(layer,keep_prob)
+    layer = tf.nn.dropout(layer,keep_prob)
 
     if use_relu:
         layer = tf.nn.relu(layer)
