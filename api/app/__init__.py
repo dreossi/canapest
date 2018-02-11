@@ -59,7 +59,7 @@ def upload_image():
         image = cv2.imread(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         classifier_result = nn.predict(image)[0] 
         
-        data['classifier_result'] = classifier_result
+        data = classifier_result.tolist()
 
     else:
       print 'No file'
