@@ -20,7 +20,6 @@ def run_demo():
             image_path = raw_input("Image path:")
             #image = mpimg.imread(image_path)
             image = cv2.imread(image_path)
-            good, bad = nn.predict(image)[0]
 
 	    print(nn.predict(image)[0])
             #print 'Bad', str(bad*100), '%'
