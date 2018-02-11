@@ -165,7 +165,7 @@ session.run(tf.global_variables_initializer())
 
 def show_progress(epoch, feed_dict_train, feed_dict_validate, val_loss):
     '''Show progress while training'''
-    EARLY_STOP = 0.8
+    EARLY_STOP = 0.85
     acc = session.run(accuracy, feed_dict=feed_dict_train)
     val_acc = session.run(accuracy, feed_dict=feed_dict_validate)
     msg = "Training Epoch {0} --- Training Accuracy: {1:>6.1%}, Validation Accuracy: {2:>6.1%},  Validation Loss: {3:.3f}"
