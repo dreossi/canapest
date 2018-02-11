@@ -11,11 +11,15 @@ class Model:
     graph = None    # Netwok graph
     sess = None     # Tensorflow session
 
-    def init(self, grap_path, checkpoints_path, sess):
+    def init(self,  sess, grap_path = os.path.abspath('app/ai/canapest-multi-model.meta'),
+         checkpoints_path = os.path.abspath('app/ai/')):
         '''Initialize network model'''
         # Save tensorflow session
         self.sess = sess
         # Load netwok graph from grap_path
+
+        print(grap_path)
+
         saver = tf.train.import_meta_graph(grap_path)
         self.graph = tf.get_default_graph()
         # Load the latest weights from checkpoints_path
