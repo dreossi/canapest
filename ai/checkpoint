@@ -1,2 +1,2 @@
-model_checkpoint_path: "pero-model"
-all_model_checkpoint_paths: "pero-model"
+model_checkpoint_path: "canapest-model"
+all_model_checkpoint_paths: "canapest-model"
