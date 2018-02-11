@@ -27,10 +27,10 @@ import CircularProgress from 'material-ui/CircularProgress';
 import Theme from './Theme.js';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
-
 /*
 TODO:
-- add cancel button
+- Make working cancel button
+- Get response -> Classification screen
 */
 
 class App extends Component {
@@ -42,7 +42,6 @@ class App extends Component {
   }
 
   cancel() {
-    console.log(this);
     this.setState({
       pictures: []
     });
@@ -61,8 +60,10 @@ class App extends Component {
         'Access-Control-Allow-Origin': '*',
       },
       file: picture
-    }).then((data)=> {
-      console.log(data)
+    }).then((response)=> {
+      response.json().then((data) => {
+        console.log(data);
+      })
     });
   }
 
