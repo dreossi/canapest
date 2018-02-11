@@ -22,6 +22,8 @@ pip install -r requirements.txt
 flask run 
 ```
 
+You start a locally available server with `flask run --host=0.0.0.0`.
+
 Endpoints 
 localhost:5000/upload_image
 
