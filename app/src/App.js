@@ -71,7 +71,7 @@ class App extends Component {
       let data = {};
       data.y = response[i];
       data.x = labels[i];
-      data.title = labels[i];
+      data.title = labels[i] + ": " + String(Math.round(response[i] * 100)) + " %";
       data.value = response[i];
       data.color = colors[i];
       datalist.push(data);
@@ -130,7 +130,7 @@ class App extends Component {
                         strokeColor="#fff"
                         strokeLinejoin="round"
                         strokeWidth={1}
-                        viewBoxSize={400}
+                        viewBoxSize={100}
                       />
                     </div>
                   }

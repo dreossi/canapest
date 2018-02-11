@@ -20,6 +20,7 @@
 
 .App-intro {
   font-size: large;
+  padding: 20px;
 }
 
 @keyframes App-logo-spin {
@@ -41,7 +42,7 @@
 }
 
 .analysis {
-  float: left;
+  padding: 20px;
 }
 
 .fileContainer .uploadPicturesWrapper .uploadPictureContainer {
@@ -163,14 +164,14 @@
   position: absolute;
   top: -9px;
   right: -9px;
-  font-size: 8px;
+  font-size: 14px;
   color: #fff;
-  background: #ff4081;
+  background: #F95F75;
   border-radius: 50%;
-  width: 15px;
-  height: 15px;
+  width: 30px;
+  height: 30px;
   text-align: center;
-  line-height: 15px;
+  line-height: 30px;
   cursor: pointer;
 }
 
