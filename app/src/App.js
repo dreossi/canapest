@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import ImageUploader from 'react-images-upload';
+import ImageUploader from './react-image-upload';
 // import Webcam from './Webcam';
-import { Spin, Alert } from 'antd';
 import AppBar from 'material-ui/AppBar';
 
 import spacing from 'material-ui/styles/spacing';
@@ -66,30 +65,29 @@ class App extends Component {
             <img src={logo} className="App-logo" alt="logo" />
           }
         />
-        <Card className="App">
+        <Card className="center">
           <CardText>
-            <p className={this.state.pictures.length < 1 ? 'App-intro': 'hide'}>
-              Welcome to the Canabis plant disease classifier, upload an image to classify it.
-            </p>
-            <ImageUploader
-                buttonText='Upload image'
-                onChange={this.onDrop}
-                imgExtension={['.jpg', '.gif', '.png', '.gif']}
-                maxFileSize={5242880}
-                withPreview={true}
-                withIcon={this.state.pictures.length < 1 ? true: false}
-                withLabel={false}
-                buttonClassName={this.state.pictures.length < 1 ? 'chooseFileButton': 'hide'}
-            />
-            <div className={this.state.pictures.length < 1 ? 'hide': 'analysis'}>
-              <Spin tip="Analyzing...">
-                <Alert
-                  message="Alert message title"
-                  description="Further details about the context of this alert."
-                  type="info"
+            <Row>
+              <Col xs={12} md={12}>
+                <p className={this.state.pictures.length < 1 ? 'App-intro': 'hide'}>
+                  Welcome to the Canabis plant disease classifier, upload an image to classify it.
+                </p>
+                <ImageUploader
+                    buttonText='Upload image'
+                    onChange={this.onDrop}
+                    imgExtension={['.jpg', '.gif', '.png', '.gif']}
+                    maxFileSize={5242880}
+                    withPreview={true}
+                    withIcon={this.state.pictures.length < 1 ? true: false}
+                    withLabel={false}
+                    buttonClassName={this.state.pictures.length < 1 ? 'chooseFileButton': 'hide'}
                 />
-              </Spin>
-            </div>
+                <div className={this.state.pictures.length < 1 ? 'hide': 'analysis'}>
+                  Analizing...
+                  <CircularProgress />
+                </div>
+              </Col>
+            </Row>
           </CardText>
         </Card>
       </MuiThemeProvider>
