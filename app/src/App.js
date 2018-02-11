@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import ImageUploader from './react-image-upload';
-import Webcam from './Webcam';
+// import Webcam from './Webcam';
 import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
 import spacing from 'material-ui/styles/spacing';
@@ -48,23 +48,40 @@ class App extends Component {
   }
 
   onDrop(picture) {
+    // let formData = new FormData();
+    // formData.append('type', 'file');
+    // formData.append('file', picture);
+
     this.setState({
       pictures: this.state.pictures.concat(picture),
     });
 
-    fetch('http://localhost:5000/upload_image', {
-      method:'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-      },
-      file: picture
-    }).then((response)=> {
-      response.json().then((data) => {
-        console.log(data);
-      })
-    });
+/*    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'http://localhost:3001/upload_image');
+    xhr.setRequestHeader('Content-Type', 'multipart/form-data');
+    xhr.send(formdata);
+    xhr.onreadystatechange = function(){
+        if(xhr.readyState != 4) return;
+        if(xhr.status != 200){
+            alert("Status: " + xhr.status);
+        }else{
+            alert(xhr.responseText);
+        }
+    };
+*/
+    // fetch('http://localhost:3001/upload_image', {
+    //   method:'POST',
+    //   headers: {
+    //     'Accept': 'application/json',
+    //     'Access-Control-Allow-Origin': '*',
+    //   },
+    //   body: formData
+    // })
+    // .then((response)=> {
+    //   response.json()
+    // }).then((data) => {
+    //     console.log(data);
+    // })
   }
 
 
@@ -87,12 +104,6 @@ class App extends Component {
                 <div className={this.state.pictures.length < 1 ? 'hide': 'analysis'}>
                   Analizing...
                   <CircularProgress />
-                  <RaisedButton
-                    label="Cancel"
-                    secondary={true}
-                    onClick={this.cancel}
-                    // icon={<FontIcon className="muidocs-icon-custom-github" />}
-                  />
                 </div>
               </Col>
               <Col xs={12} md={6}>

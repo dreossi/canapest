@@ -69,6 +69,24 @@ class ReactImageUploadComponent extends React.PureComponent {
 				};
 			})(f);
 			reader.readAsDataURL(f);
+
+			let formData = new FormData();
+		    formData.append('type', 'file');
+		    formData.append('file', f);
+
+			fetch('http://localhost:5000/upload_image', {
+		      method:'POST',
+		      headers: {
+		        'Accept': 'application/json',
+		        'Access-Control-Allow-Origin': '*',
+		      },
+		      body: formData
+		    })
+		    .then((response)=> {
+		      response.json()
+		    }).then((data) => {
+		        console.log(data);
+		    })
 		}
 	}
 
@@ -174,7 +192,6 @@ class ReactImageUploadComponent extends React.PureComponent {
 						type="file"
 						ref={input => this.inputElement = input}
 						name={this.props.name}
-						multiple="multiple"
 						onChange={this.onDropFile}
 						accept={this.props.accept}
 						className={this.props.className}
