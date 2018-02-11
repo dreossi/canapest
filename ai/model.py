@@ -3,6 +3,7 @@ import numpy as np
 import os,glob
 import sys,argparse
 from PIL import Image
+import cv2
 
 
 class Model:
@@ -52,7 +53,7 @@ class Model:
 
 
         # Calculate y_pred
-        feed_dict_testing = {x: x_batch, y_true: y_test_images, keep_prob: 1.0}
+        feed_dict_testing = {x: x_batch, y_true: y_test_images}
         result=self.sess.run(y_pred, feed_dict=feed_dict_testing)
 
         return result
