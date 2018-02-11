@@ -42,6 +42,7 @@ x = tf.placeholder(tf.float32, shape=[None, img_size,img_size,num_channels], nam
 # Labels
 y_true = tf.placeholder(tf.float32, shape=[None, num_classes], name='y_true')
 y_true_cls = tf.argmax(y_true, dimension=1)
+keep_prob = tf.placeholder(tf.float32)
 
 
 
@@ -107,6 +108,8 @@ def create_fc_layer(input, num_inputs, num_outputs, use_relu=True):
 
     # Fully connected layer takes input x and produces wx+b
     layer = tf.matmul(input, weights) + biases
+    layer = tf.dropout(layer,keep_prob)
+
     if use_relu:
         layer = tf.nn.relu(layer)
 
@@ -183,8 +186,8 @@ def train(num_iteration):
         x_valid_batch, y_valid_batch, _, _ = data.valid.next_batch(batch_size)
 
 
-        feed_dict_tr = {x: x_batch, y_true: y_true_batch}
-        feed_dict_val = {x: x_valid_batch, y_true: y_valid_batch}
+        feed_dict_tr = {x: x_batch, y_true: y_true_batch, keep_prob: 0.5}
+        feed_dict_val = {x: x_valid_batch, y_true: y_valid_batch, keep_prob : 1.0}
 
         session.run(optimizer, feed_dict=feed_dict_tr)
 
