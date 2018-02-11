@@ -14,6 +14,7 @@ import sys, getopt
 import cv2
 import tensorflow as tf
 import matplotlib.image as mpimg
+from datetime import datetime
 
 
 from flask import Flask
@@ -25,6 +26,13 @@ APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 UPLOAD_FOLDER = os.path.join(APP_ROOT, 'static/uploads')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+
+print 'initializing tensorflow - {}'.format(datetime.now())
+sess = tf.Session()
+nn = am.Model()
+nn.init(sess)
+print 'initialized tensorflow!! - {}'.format(datetime.now())
 
 @app.route('/')
 @app.route('/index')
@@ -44,22 +52,12 @@ def upload_image():
       print 'Saved file'
       #call the classifier here, return the result
 
-      with tf.Session() as sess:
-      	print
-        print '************************************'
-        print 
-        print dir(ai)
-        
-        print 
-        print '************************************'
-      	
-        nn = am.Model()
-        nn.init(sess)
+      
         #image = cv2.imread(image_path)
-        image = cv2.imread(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        classifier_result = nn.predict(image)[0] 
-        
-        data = classifier_result.tolist()
+      image = cv2.imread(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+      classifier_result = nn.predict(image)[0] 
+      
+      data = classifier_result.tolist()
 
     else:
       print 'No file'
