@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import ImageUploader from './react-image-upload';
-// import Webcam from './Webcam';
+import Webcam from './Webcam';
 import AppBar from 'material-ui/AppBar';
-
+import RaisedButton from 'material-ui/RaisedButton';
 import spacing from 'material-ui/styles/spacing';
 import withWidth, {MEDIUM, LARGE} from 'material-ui/utils/withWidth';
 import {darkWhite, lightWhite, grey900} from 'material-ui/styles/colors';
@@ -35,6 +35,14 @@ class App extends Component {
     super(props);
     this.state = { pictures: [] };
     this.onDrop = this.onDrop.bind(this);
+    this.cancel = this.cancel.bind(this);
+  }
+
+  cancel() {
+    console.log(this);
+    this.setState({
+      pictures: []
+    });
   }
 
   onDrop(picture) {
@@ -68,10 +76,22 @@ class App extends Component {
         <Card className="center">
           <CardText>
             <Row>
-              <Col xs={12} md={12}>
+              <Col xs={12} md={6}>
                 <p className={this.state.pictures.length < 1 ? 'App-intro': 'hide'}>
                   Welcome to the Canabis plant disease classifier, upload an image to classify it.
                 </p>
+                <div className={this.state.pictures.length < 1 ? 'hide': 'analysis'}>
+                  Analizing...
+                  <CircularProgress />
+                  <RaisedButton
+                    label="Cancel"
+                    secondary={true}
+                    onClick={this.cancel}
+                    // icon={<FontIcon className="muidocs-icon-custom-github" />}
+                  />
+                </div>
+              </Col>
+              <Col xs={12} md={6}>
                 <ImageUploader
                     buttonText='Upload image'
                     onChange={this.onDrop}
@@ -82,10 +102,6 @@ class App extends Component {
                     withLabel={false}
                     buttonClassName={this.state.pictures.length < 1 ? 'chooseFileButton': 'hide'}
                 />
-                <div className={this.state.pictures.length < 1 ? 'hide': 'analysis'}>
-                  Analizing...
-                  <CircularProgress />
-                </div>
               </Col>
             </Row>
           </CardText>
