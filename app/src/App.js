@@ -111,17 +111,6 @@ class App extends Component {
                     </div>: <div>
                       <h1>{this.state.analysis.x}</h1>
                       <h3>Confidence: {this.state.analysis.y} %</h3>
-                      {
-                        // <VictoryPie
-                        //   data={this.state.data}
-                        //   innerRadius={100}
-                        //   labelRadius={150}
-                        //   height={500}
-                        //   width={500}
-                        //   colorScale={["#72E39E", "#FAE29C", "#F95F75", "#FF7F50"]}
-                        //   style={{ labels: { fontSize: 20, fontWeight: "bold", padding: 10 } }}
-                        // />
-                      }
                       <PieChart
                         data={this.state.data}
                         expandOnHover={true}
