@@ -27,12 +27,12 @@ import CircularProgress from 'material-ui/CircularProgress';
 import Theme from './Theme.js';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import { VictoryPie } from 'victory-pie';
+import PieChart from "react-svg-piechart"
 
 
 /*
 TODO:
 - Make working cancel button
-- Get response -> Classification screen
 */
 
 class App extends Component {
@@ -41,14 +41,15 @@ class App extends Component {
     this.state = { 
       pictures: [],
       classification: [],
-      data: []
+      data: [],
+      analysis: {}
     };
     this.onDrop = this.onDrop.bind(this);
-    this.cancel = this.cancel.bind(this);
+    this.onCancel = this.onCancel.bind(this);
     this.onResponse = this.onResponse.bind(this);
   }
 
-  cancel() {
+  onCancel() {
     this.setState({
       pictures: []
     });
@@ -64,14 +65,25 @@ class App extends Component {
   onResponse (response) {
     this.setState({classification: response});
     let labels = ['Healthy', 'Deficiency', 'Powder', 'Burn'];
+    let colors = ["#72E39E", "#FAE29C", "#F95F75", "#FF7F50"];
     let datalist = [];
     for (let i in response) {
       let data = {};
       data.y = response[i];
       data.x = labels[i];
+      data.title = labels[i];
+      data.value = response[i];
+      data.color = colors[i];
       datalist.push(data);
     }
+
+    let decision = response.indexOf(Math.max(...response));
+    let report = {
+      x: datalist[decision].x,
+      y: Math.round(datalist[decision].y * 100),
+    }
     this.setState({data: datalist});
+    this.setState({analysis: report});
   }
 
   render() {
@@ -83,23 +95,42 @@ class App extends Component {
             <img src={logo} className="App-logo" alt="logo" />
           }
         />
-        <Card className="center">
+        <Card className="center" style={{height: 1000}}>
           <CardText>
             <Row>
-              <Col xs={12} md={6}>
-                <p className={this.state.pictures.length < 1 ? 'App-intro': 'hide'}>
-                  Welcome to the Canabis plant disease classifier, upload an image to classify it.
-                </p>
+              <Col xs={12} md={6} className="center">
+                <div className={this.state.pictures.length < 1 ? 'App-intro': 'hide'}>
+                  <h3>Welcome to the Cannabis disease classifier!</h3>
+                  <h4>Upload an image to classify it.</h4>
+                </div>
                 <div className={this.state.pictures.length < 1 ? 'hide': 'analysis'}>
                   {
                     this.state.classification.length < 1 ? <div>
                       <CircularProgress />
                       Analizing...
                     </div>: <div>
-                      <VictoryPie
+                      <h1>{this.state.analysis.x}</h1>
+                      <h3>Confidence: {this.state.analysis.y} %</h3>
+                      {
+                        // <VictoryPie
+                        //   data={this.state.data}
+                        //   innerRadius={100}
+                        //   labelRadius={150}
+                        //   height={500}
+                        //   width={500}
+                        //   colorScale={["#72E39E", "#FAE29C", "#F95F75", "#FF7F50"]}
+                        //   style={{ labels: { fontSize: 20, fontWeight: "bold", padding: 10 } }}
+                        // />
+                      }
+                      <PieChart
                         data={this.state.data}
-                        innerRadius={100}
-                        colorScale={["green", "yellow", "grey", "red"]}
+                        expandOnHover={true}
+                        expandSize={5}
+                        shrinkOnTouchEnd={false}
+                        strokeColor="#fff"
+                        strokeLinejoin="round"
+                        strokeWidth={1}
+                        viewBoxSize={400}
                       />
                     </div>
                   }
@@ -113,6 +144,7 @@ class App extends Component {
                     maxFileSize={5242880}
                     withPreview={true}
                     onResponse={this.onResponse}
+                    onCancel={this.onCancel}
                     withIcon={this.state.pictures.length < 1 ? true: false}
                     withLabel={false}
                     buttonClassName={this.state.pictures.length < 1 ? 'chooseFileButton': 'hide'}

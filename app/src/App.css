@@ -159,8 +159,8 @@
 }
 
 .fileContainer .deleteImage {
-  display: none;
-/*  position: absolute;
+  /*display: none;*/
+  position: absolute;
   top: -9px;
   right: -9px;
   font-size: 8px;
@@ -171,5 +171,9 @@
   height: 15px;
   text-align: center;
   line-height: 15px;
-  cursor: pointer;*/
+  cursor: pointer;
+}
+
+* {
+  font-family: 'Open Sans', sans-serif;
 }

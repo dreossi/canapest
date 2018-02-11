@@ -5433,6 +5433,10 @@ react-scripts@1.1.1:
   optionalDependencies:
     fsevents "^1.1.3"
 
+react-svg-piechart@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/react-svg-piechart/-/react-svg-piechart-2.0.3.tgz#0ab0181e2d22be303ee234b2030c6af3dfe5f5b6"
+
 react-transition-group@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-1.2.1.tgz#e11f72b257f921b213229a774df46612346c7ca6"

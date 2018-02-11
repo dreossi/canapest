@@ -119,6 +119,7 @@ class ReactImageUploadComponent extends React.PureComponent {
 	removeImage(picture) {
 		const filteredAry = this.state.pictures.filter((e) => e !== picture);
 		this.setState({pictures: filteredAry})
+		this.props.onCancel();
 	}
 
 	/*
