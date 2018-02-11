@@ -8,6 +8,7 @@
     "react-dom": "^16.2.0",
     "react-images-upload": "^1.1.1",
     "react-scripts": "1.1.1",
+    "react-webcam": "^0.2.0",
     "whatwg-fetch": "^2.0.3"
   },
   "scripts": {

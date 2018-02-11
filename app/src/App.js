@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import ImageUploader from 'react-images-upload';
+import Webcam from 'react-webcam';
 
 class App extends Component {
   constructor(props) {
@@ -10,10 +11,22 @@ class App extends Component {
     this.onDrop = this.onDrop.bind(this);
   }
 
+  setRef = (webcam) => {
+    this.webcam = webcam;
+  }
+
+  capture = () => {
+    const imageSrc = this.webcam.getScreenshot();
+    console.log(imageSrc);
+    this.onDrop(imageSrc);
+  };
+
   onDrop(picture) {
     this.setState({
       pictures: this.state.pictures.concat(picture),
     });
+
+    console.log(picture);
 
     // fetch('/upload_image/', {
     //   method: 'POST',
@@ -31,6 +44,7 @@ class App extends Component {
       body: picture
     });
   }
+
 
   render() {
     return (
@@ -51,6 +65,25 @@ class App extends Component {
             withPreview={true}
             withLabel={false}
         />
+        {
+          // this.state.pictures.map((picture, index) => {
+          //   return (
+          //     <div key={index} className="uploadPictureContainer">
+          //       <img src={picture} className="uploadPicture" alt="preview"/>
+          //     </div>
+          //   );
+          // })
+        }
+        {
+        // <Webcam
+        //   audio={false}
+        //   height={350}
+        //   ref={this.setRef}
+        //   screenshotFormat="image/jpeg"
+        //   width={350}
+        // />
+        // <button onClick={this.capture}>Capture photo</button>
+        }
       </div>
     );
   }
