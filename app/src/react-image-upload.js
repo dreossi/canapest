@@ -83,12 +83,8 @@ class ReactImageUploadComponent extends React.PureComponent {
 		      body: formData
 		    })
 		    .then((response)=> {
-		      response.json().then((data)=> {console.log(data)});
+		      response.json().then((data)=> {this.props.onResponse(data);});
 		    })
-
-		    setTimeout(()=> {
-		    	
-		    }, 2000);
 		}
 	}
 

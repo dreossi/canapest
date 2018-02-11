@@ -13,6 +13,7 @@
     "react-flip-move": "^3.0.1",
     "react-images-upload": "^1.1.1",
     "react-scripts": "1.1.1",
+    "victory-pie": "^14.0.1",
     "whatwg-fetch": "^2.0.3"
   },
   "scripts": {

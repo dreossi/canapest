@@ -26,6 +26,8 @@ import { Row, Col } from 'react-flexbox-grid';
 import CircularProgress from 'material-ui/CircularProgress';
 import Theme from './Theme.js';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import { VictoryPie } from 'victory-pie';
+
 
 /*
 TODO:
@@ -36,9 +38,14 @@ TODO:
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { pictures: [] };
+    this.state = { 
+      pictures: [],
+      classification: [],
+      data: []
+    };
     this.onDrop = this.onDrop.bind(this);
     this.cancel = this.cancel.bind(this);
+    this.onResponse = this.onResponse.bind(this);
   }
 
   cancel() {
@@ -48,42 +55,24 @@ class App extends Component {
   }
 
   onDrop(picture) {
-    // let formData = new FormData();
-    // formData.append('type', 'file');
-    // formData.append('file', picture);
-
+    console.log(this);
     this.setState({
       pictures: this.state.pictures.concat(picture),
     });
-
-/*    var xhr = new XMLHttpRequest();
-    xhr.open('POST', 'http://localhost:3001/upload_image');
-    xhr.setRequestHeader('Content-Type', 'multipart/form-data');
-    xhr.send(formdata);
-    xhr.onreadystatechange = function(){
-        if(xhr.readyState != 4) return;
-        if(xhr.status != 200){
-            alert("Status: " + xhr.status);
-        }else{
-            alert(xhr.responseText);
-        }
-    };
-*/
-    // fetch('http://localhost:3001/upload_image', {
-    //   method:'POST',
-    //   headers: {
-    //     'Accept': 'application/json',
-    //     'Access-Control-Allow-Origin': '*',
-    //   },
-    //   body: formData
-    // })
-    // .then((response)=> {
-    //   response.json()
-    // }).then((data) => {
-    //     console.log(data);
-    // })
   }
 
+  onResponse (response) {
+    this.setState({classification: response});
+    let labels = ['Healthy', 'Deficiency', 'Powder', 'Burn'];
+    let datalist = [];
+    for (let i in response) {
+      let data = {};
+      data.y = response[i];
+      data.x = labels[i];
+      datalist.push(data);
+    }
+    this.setState({data: datalist});
+  }
 
   render() {
     return (
@@ -102,8 +91,18 @@ class App extends Component {
                   Welcome to the Canabis plant disease classifier, upload an image to classify it.
                 </p>
                 <div className={this.state.pictures.length < 1 ? 'hide': 'analysis'}>
-                  Analizing...
-                  <CircularProgress />
+                  {
+                    this.state.classification.length < 1 ? <div>
+                      <CircularProgress />
+                      Analizing...
+                    </div>: <div>
+                      <VictoryPie
+                        data={this.state.data}
+                        innerRadius={100}
+                        colorScale={["green", "yellow", "grey", "red"]}
+                      />
+                    </div>
+                  }
                 </div>
               </Col>
               <Col xs={12} md={6}>
@@ -113,6 +112,7 @@ class App extends Component {
                     imgExtension={['.jpg', '.gif', '.png', '.gif']}
                     maxFileSize={5242880}
                     withPreview={true}
+                    onResponse={this.onResponse}
                     withIcon={this.state.pictures.length < 1 ? true: false}
                     withLabel={false}
                     buttonClassName={this.state.pictures.length < 1 ? 'chooseFileButton': 'hide'}
