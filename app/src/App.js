@@ -53,7 +53,7 @@ class App extends Component {
       pictures: this.state.pictures.concat(picture),
     });
 
-    fetch('http://localhost:5000/upload_image/', {
+    fetch('http://localhost:5000/upload_image', {
       method:'POST',
       headers: {
         Accept: 'application/json',
