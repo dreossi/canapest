@@ -2,6 +2,9 @@ from app import app
 from flask import jsonify
 from flask import Response
 from flask import request
+import os 
+from werkzeug.utils import secure_filename
+
 
 @app.route('/')
 @app.route('/index')
@@ -11,10 +14,19 @@ def index():
 
 @app.route('/upload_image', methods = ['POST', "GET"])
 def upload_image():
-  if 'file' in request.files:
-    f = request.files['file']
-    f.save(secure_filename(f.filename))
+  print request.headers
+
   data = run_neural_net()
+  if request.method == 'POST':
+    if 'file' in request.files:
+      f = request.files['file']
+      filename = secure_filename(f.filename)
+      f.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+      print 'Saved file'
+    else:
+      print 'No file'
+  #else:
+    #continue
   resp = jsonify(data)
   resp.status_code = 200
   return resp
@@ -22,4 +34,5 @@ def upload_image():
 
 
 def run_neural_net():
+  #todo tie this to backend 
   return {'good': 55,'bad':45}

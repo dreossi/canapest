@@ -1,3 +1,6 @@
 api/venv
 api/venv/*
+
 app/package-lock.json
+ai/venv
+ai/venv/*
