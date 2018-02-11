@@ -24,6 +24,9 @@ import {
 import WarningIcon from 'material-ui/svg-icons/alert/warning';
 import { Row, Col } from 'react-flexbox-grid';
 import CircularProgress from 'material-ui/CircularProgress';
+import Theme from './Theme.js';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+
 
 /*
 TODO:
@@ -66,7 +69,7 @@ class App extends Component {
 
   render() {
     return (
-      <MuiThemeProvider>
+      <MuiThemeProvider muiTheme={getMuiTheme(Theme)}>
         <AppBar
           title={<span style={{cursor: 'pointer'}}>Cannapest</span>}
           iconElementLeft={

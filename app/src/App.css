@@ -58,7 +58,6 @@
 
 .fileContainer {
   background: #fff;
-  box-shadow: 2px 2px 3px 0 rgba(0, 0, 0, 0.05);
   position: relative;
   border-radius: 10px;
   padding: 20px 0;
@@ -107,7 +106,7 @@
 }
 
 .fileContainer .uploadFilesButton {
-  padding: 5px 43px;
+  padding: 5px 55px;
   background: transparent;
   border-radius: 30px;
   color: #3f4257;
@@ -131,6 +130,7 @@
   background: url(add_image.svg);
   -webkit-background-size: cover;
   background-size: cover;
+  opacity: 0.8;
 }
 
 .fileContainer .uploadPicturesWrapper {
@@ -158,8 +158,9 @@
   width: 100%;
 }
 
-/*.fileContainer .deleteImage {
-  position: absolute;
+.fileContainer .deleteImage {
+  display: none;
+/*  position: absolute;
   top: -9px;
   right: -9px;
   font-size: 8px;
@@ -170,5 +171,5 @@
   height: 15px;
   text-align: center;
   line-height: 15px;
-  cursor: pointer;
-}*/
+  cursor: pointer;*/
+}
