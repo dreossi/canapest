@@ -20,7 +20,7 @@ enum34==1.1.6
 Flask-PyMongo==0.4.1
 funcsigs==1.0.2
 futures==3.2.0
-html5lib==0.9999999
+html5lib==0.99999999
 itsdangerous==0.24
 macholib==1.5.1
 Markdown==2.6.11
