@@ -9,7 +9,7 @@ Flask==0.10.1
 Flask-PyMongo==0.4.1
 funcsigs==1.0.2
 futures==3.2.0
-html5lib==0.9999999
+html5lib==0.999999999
 itsdangerous==0.24
 Jinja2==2.8
 macholib==1.5.1
